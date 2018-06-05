@@ -25,7 +25,7 @@
 /*
  * My thread statement
  */
-void My_Thread(ulong_t arg);
+void keyBoard(ulong_t arg);
 
 
 /*
@@ -53,7 +53,7 @@ void Main(struct Boot_Info* bootInfo)
 
 
     /*TODO("Start a kernel thread to echo pressed keys and print counts");*/
-    Start_Kernel_Thread(My_Thread, 157, PRIORITY_NORMAL, false);
+    Start_Kernel_Thread(keyBoard, 157, PRIORITY_NORMAL, false);
 
 
 
@@ -67,13 +67,26 @@ void Main(struct Boot_Info* bootInfo)
 /*
  * My thread implemention
  */
-void My_Thread(ulong_t atg){
-    Print("Hello from penguinang!!!\n");
-    Print("Chinese is 杨蓬博\n");
-    /*while(1){*/
-        
-    /*}*/
+void keyBoard(ulong_t atg){
+    Keycode key;
+    Print("keyboard test\n");
+    while(1)
+    {         
+        if( Read_Key(&key) )       
+        {              
+            if(!( (key & KEY_SPECIAL_FLAG) || (key & KEY_RELEASE_FLAG)) ) 
+            {
+                int asciiCode = key &  0xff;
+                if (asciiCode == '\r')
+                {
+                    Print("\n");
+                }
+                else
+                {
+                    Print("%c", asciiCode);
+                }
+            }         
+        }    
+    }
+
 }
-
-
-
