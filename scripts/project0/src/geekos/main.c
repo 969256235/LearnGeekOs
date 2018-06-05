@@ -76,14 +76,13 @@ void keyBoard(ulong_t atg){
         {              
             if(!( (key & KEY_SPECIAL_FLAG) || (key & KEY_RELEASE_FLAG)) ) 
             {
-                int asciiCode = key &  0xff;
-                if (asciiCode == '\r')
+                if (key == '\r')
                 {
                     Print("\n");
                 }
                 else
                 {
-                    Print("%c", asciiCode);
+                    Print("%c", key);
                 }
             }         
         }    
